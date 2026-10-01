@@ -116,6 +116,21 @@ th.num { text-align: right; }
 .ask { display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
 .ask .n { font-family: var(--font-display); font-size: 1.4rem; color: var(--wine); line-height: 1.1; }
 footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+.ret { width: 100%; height: auto; display: block; }
+.ret .g { stroke: var(--line); stroke-width: 1; }
+.ret .ax { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.ret .lab { fill: var(--fg); font-family: var(--font-mono); font-size: 12px; }
+.ret .mark { stroke: var(--muted); stroke-dasharray: 3 4; stroke-width: 1; }
+.ret .l { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.ret .l.eh { stroke: var(--c-amor); } .ret .l.nj { stroke: var(--c-desp); }
+.ret .d { stroke: var(--surface); stroke-width: 2; } .ret .d.eh { fill: var(--c-amor); } .ret .d.nj { fill: var(--c-desp); }
+.src { display: grid; gap: 6px; }
+.src-row { display: grid; grid-template-columns: minmax(0, 13rem) 1fr; gap: 12px; align-items: center; font-size: 0.85rem; }
+.src-row .name { color: var(--muted); text-align: right; }
+.src-row .bar { background: var(--c-amor); height: 12px; border-radius: 0 4px 4px 0; }
+.src-row.short .bar { background: var(--muted); }
+@media (max-width: 560px) { .src-row { grid-template-columns: minmax(0, 8rem) 1fr; } }
 </style>
 
 <div class="wrap">
@@ -123,7 +138,7 @@ footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--li
 <header>
   <span class="label">Estrategia de canal · octubre 2026</span>
   <h1>Kiara Soul: qué funcionó y qué hacemos ahora</h1>
-  <p class="lede">Análisis de los 36 vídeos largos y los Shorts con datos públicos de vidIQ, y el plan de packaging para «Ódiame», el dueto con Dorian.</p>
+  <p class="lede">Análisis de los 36 vídeos largos y los Shorts con datos de vidIQ y YouTube Analytics, y el plan de packaging para «Ódiame», el dueto con Dorian Ferrer.</p>
   <div class="facts">
     <div class="fact"><strong>603</strong><span>suscriptores</span></div>
     <div class="fact"><strong>137.8K</strong><span>visualizaciones totales</span></div>
@@ -174,7 +189,58 @@ footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--li
     </table>
   </div>
   <p>La fórmula que se repite: <b>amor que suma</b> en vez de amor que se pierde, y un título que dice <b>para qué sirve la canción</b> (enamorar, creer, dedicar). Son canciones que se mandan a la pareja, y eso las mueve fuera de YouTube. <em>Ese Hombre</em> sigue sumando 6,4 vistas por hora dos meses después, señal de que YouTube la sigue recomendando.</p>
-  <p class="muted small">Los me gusta por vista son normales, así que el empuje viene del clic y de las recomendaciones, no de una reacción extraordinaria. Para confirmarlo hacen falta las fuentes de tráfico (ver punto 4 al final).</p>
+  <p class="muted small">Las analíticas privadas, en la siguiente sección, matizan esto: <em>Ese Hombre</em> es el éxito sólido y <em>Nuestro Juramento</em> está inflado por la reproducción automática.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Analíticas privadas de YouTube</span>
+    <h2>De dónde vienen las vistas y dónde se van</h2>
+  </div>
+  <div class="verdict">
+    <div class="amor"><strong>465</strong><span class="small">veces compartido <em>Ese Hombre</em>, el 5,5% de sus vistas. <em>Demasiada Mujer</em>: 162. <em>Nuestro Juramento</em>: 170.</span></div>
+    <div class="desp"><strong>68%</strong><span class="small">de las vistas de <em>Nuestro Juramento</em> son reales (vistas comprometidas). En <em>Ese Hombre</em>, el 89%.</span></div>
+    <div><strong>4%</strong><span class="small">de las vistas del canal llegan por búsqueda. Lo que mueve los vídeos largos son los vídeos sugeridos.</span></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Cuánta gente sigue escuchando</h3>
+    <div class="legend">
+      <span style="--sw: var(--c-amor)">Ese Hombre</span>
+      <span style="--sw: var(--c-desp)">Nuestro Juramento</span>
+    </div>
+    <svg viewBox="0 0 640 260" class="ret" role="img" aria-label="Retención: Ese Hombre conserva el 66% a un 20% del vídeo y el 26% al final; Nuestro Juramento conserva el 49% y el 12%.">
+<line x1="44" x2="624" y1="226.0" y2="226.0" class="g"/><text x="36" y="230.0" class="ax" text-anchor="end">0%</text><line x1="44" x2="624" y1="173.0" y2="173.0" class="g"/><text x="36" y="177.0" class="ax" text-anchor="end">25%</text><line x1="44" x2="624" y1="120.0" y2="120.0" class="g"/><text x="36" y="124.0" class="ax" text-anchor="end">50%</text><line x1="44" x2="624" y1="67.0" y2="67.0" class="g"/><text x="36" y="71.0" class="ax" text-anchor="end">75%</text><line x1="44" x2="624" y1="14.0" y2="14.0" class="g"/><text x="36" y="18.0" class="ax" text-anchor="end">100%</text><text x="44.0" y="248" class="ax" text-anchor="middle">0:00</text><text x="160.0" y="248" class="ax" text-anchor="middle">20%</text><text x="334.0" y="248" class="ax" text-anchor="middle">mitad</text><text x="508.0" y="248" class="ax" text-anchor="middle">80%</text><text x="624.0" y="248" class="ax" text-anchor="middle">final</text>
+<line x1="160.0" x2="160.0" y1="14" y2="226" class="mark"/>
+<path d="M44.0 14.0 L73.0 36.8 L102.0 53.5 L131.0 69.2 L160.0 85.5 L189.0 97.1 L218.0 106.7 L247.0 113.3 L276.0 119.5 L305.0 127.4 L334.0 132.1 L363.0 136.3 L392.0 139.0 L421.0 142.0 L450.0 145.7 L479.0 148.4 L508.0 151.1 L537.0 153.9 L566.0 158.2 L595.0 162.1 L624.0 171.7" class="l eh"/><path d="M44.0 16.5 L73.0 50.0 L102.0 70.9 L131.0 98.8 L160.0 121.4 L189.0 134.9 L218.0 147.9 L247.0 157.3 L276.0 165.3 L305.0 171.0 L334.0 176.3 L363.0 180.1 L392.0 183.3 L421.0 186.7 L450.0 189.1 L479.0 190.6 L508.0 192.4 L537.0 194.0 L566.0 196.1 L595.0 198.1 L624.0 201.4" class="l nj"/>
+<circle cx="624.0" cy="171.7" r="4" class="d eh"/><circle cx="624.0" cy="201.4" r="4" class="d nj"/>
+<circle cx="160.0" cy="85.5" r="4" class="d eh"/><circle cx="160.0" cy="121.4" r="4" class="d nj"/>
+<text x="168.0" y="77.5" class="lab">66%</text>
+<text x="168.0" y="137.4" class="lab">49%</text>
+<text x="618.0" y="161.7" class="lab" text-anchor="end">26%</text>
+<text x="618.0" y="217.4" class="lab" text-anchor="end">12%</text>
+</svg>
+    <p class="median-note">Porcentaje de espectadores que siguen en cada punto del vídeo. La línea discontinua marca el 20%, casi el primer minuto.</p>
+  </div>
+  <p><em>Nuestro Juramento</em> pierde a la mitad de la gente antes del primer minuto. <em>Ese Hombre</em> conserva dos de cada tres. Gran parte de las vistas de <em>Nuestro Juramento</em> vienen del inicio de YouTube y del feed de suscriptores, donde desde el 27 de agosto YouTube cuenta como vista la reproducción automática desde el primer fotograma. Por eso parece un éxito mayor de lo que es. El éxito real es <em>Ese Hombre</em>: la gente se queda, se suscribe (64 suscriptores, el vídeo que más ha traído) y la comparte.</p>
+
+  <div class="chart-card">
+    <h3>Fuentes de tráfico del canal · 25 mar – 1 oct</h3>
+    <div class="src"><div class="src-row short"><span class="name">Shorts</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 1.0000)"></span><span class="val">92.837</span></span></div><div class="src-row "><span class="name">Vídeos sugeridos</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.2069)"></span><span class="val">19.205</span></span></div><div class="src-row "><span class="name">Feed de suscriptores</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.1104)"></span><span class="val">10.247</span></span></div><div class="src-row "><span class="name">Listas de reproducción</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.0742)"></span><span class="val">6.884</span></span></div><div class="src-row "><span class="name">Búsqueda de YouTube</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.0618)"></span><span class="val">5.737</span></span></div><div class="src-row "><span class="name">Página del canal</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.0242)"></span><span class="val">2.248</span></span></div><div class="src-row "><span class="name">Otros</span><span class="bar-track"><span class="bar" style="width:calc((100% - 5rem) * 0.0580)"></span><span class="val">5.384</span></span></div></div>
+    <p class="median-note">Los Shorts suman 92.837 vistas, el 65% del total, pero cada Short trae entre 0 y 11 suscriptores. Las listas de reproducción dan la mejor retención del canal: el 76% de cada vídeo de media, frente al 36% en sugeridos.</p>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <span class="tag up">Qué implica</span>
+      <ul>
+        <li><b>Los primeros 30 segundos deciden.</b> La voz tiene que entrar antes del segundo 10. En «Ódiame», la intro de guitarra no debería pasar de 8 segundos, o el vídeo puede abrir con el estribillo.</li>
+        <li><b>El título se escribe para el clic desde sugeridos, no para la búsqueda.</b> Por eso conviene que «Ódiame» vaya primero: así YouTube lo asocia a las versiones famosas y lo recomienda junto a ellas.</li>
+        <li><b>Las listas son la mejor fuente.</b> Crea 4 listas temáticas y pon cada lanzamiento nuevo en la primera posición de la suya.</li>
+        <li><b>Pedir que se comparta.</b> <em>Ese Hombre</em> se mandó a la pareja. En «Ódiame», el comentario fijado puede ser «Envíasela a quien todavía no te ha olvidado».</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section>
@@ -186,7 +252,7 @@ footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--li
     <div class="col">
       <span class="tag ok">Funcionó</span>
       <ul>
-        <li><b>Amor que reconstruye.</b> <em>Ese Hombre</em> (9.220) y <em>Nuestro Juramento</em> (7.943 en 12 días) son los dos mayores éxitos.</li>
+        <li><b>Amor que reconstruye.</b> <em>Ese Hombre</em> (9.220) es el mayor éxito real: retiene, suscribe y se comparte. <em>Nuestro Juramento</em> (7.943 en 12 días) tiene muchas vistas, pero retiene poco.</li>
         <li><b>Títulos con promesa de uso.</b> Los tres vídeos con más arranque usan «Para Enamorar» o «Te Hará Creer en el Amor» en el bloque central.</li>
         <li><b>Frases rotundas de dignidad.</b> <em>Demasiada Mujer</em> (5.303) es el único éxito de despecho y lleva 6 meses sumando.</li>
         <li><b>Shorts constantes.</b> Casi todos superan las 1.100 vistas, y el mejor llega a 2.777.</li>
@@ -371,11 +437,11 @@ Kiara Soul y Dorian Ferrer cantan a dos voces la historia de dos amantes que pre
     <div class="ask"><span class="n">1</span><p><b>Letra recibida.</b> Ningún verso copia el poema de Federico Barreto: comparte la idea (el odio es mejor que el olvido), pero con palabras nuevas. El poema es de dominio público y las ideas no tienen derechos. Vigila solo una cosa: que la melodía no se parezca al vals de Rafael Otero.</p></div>
     <div class="ask"><span class="n">2</span><p><b>Corrige «ódíame» en los subtítulos y la descripción.</b> Aparece con doble tilde en 3 versos. Lo correcto es «ódiame».</p></div>
     <div class="ask"><span class="n">3</span><p><b>Canal de Dorian recibido</b> (@dorianferrermusic). Su análisis está en la sección «Dorian Ferrer».</p></div>
-    <div class="ask"><span class="n">4</span><p><b>Conectar Kiara Soul a vidIQ.</b> Tu vidIQ está conectado al canal «Francisco Sarria», así que solo veo datos públicos. Con el canal de Kiara conectado puedo ver retención, CTR y fuentes de tráfico, por ejemplo de dónde salieron las 7.943 vistas de <em>Nuestro Juramento</em>.</p></div>
+    <div class="ask"><span class="n">4</span><p><b>Canal de Kiara conectado a vidIQ.</b> Las fuentes de tráfico y la retención ya están en la página.</p></div>
   </div>
 </section>
 
-<footer>Datos públicos de vidIQ a 1 de octubre de 2026 · Canal @kiarasoulmusic</footer>
+<footer>Datos de vidIQ y YouTube Analytics a 1 de octubre de 2026 · Canal @kiarasoulmusic</footer>
 </div>
 
 <script>
