@@ -1,0 +1,316 @@
+<title>Auditoría Kiara Soul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una columna de lectura tipo "carta de bar de jazz"; las 10 propuestas en rejilla filtrable por pilar. Dark-first. */
+:root {
+  --bg: #12141c;
+  --surface: #1b1e29;
+  --line: #2c3040;
+  --fg: #ece6da;
+  --muted: #a39d92;
+  --brass: #d6a85a;
+  --wine: #b0485a;
+  --font-display: "Gloock", "Georgia", serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f6f3ee; --surface: #fffdf9; --line: #ddd6ca; --fg: #1d1b22; --muted: #66605a;
+    --brass: #8f6418; --wine: #9a2e42; color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f6f3ee; --surface: #fffdf9; --line: #ddd6ca; --fg: #1d1b22; --muted: #66605a;
+  --brass: #8f6418; --wine: #9a2e42; color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2.4rem, 7vw, 4.4rem); }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.2rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0; max-width: 65ch; }
+.label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+.muted { color: var(--muted); }
+section { display: grid; gap: 24px; }
+.sec-head { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 20px; }
+
+/* Hero */
+header { display: grid; gap: 20px; }
+header .lede { font-size: 1.15rem; color: var(--muted); }
+.genres { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-mono); font-size: 0.75rem; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; color: var(--fg); }
+.facts { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 8px; }
+.fact strong { display: block; font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; color: var(--brass); line-height: 1; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+/* Pilares */
+.pillars { display: grid; gap: 0; }
+.pillar { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.pillar .n { font-family: var(--font-display); font-size: 2rem; color: var(--wine); line-height: 1; }
+.pillar > div { min-width: 0; display: grid; gap: 6px; }
+.songs { font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+/* Fórmula de título */
+.formula { font-family: var(--font-mono); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.formula b { font-weight: 500; background: var(--surface); border: 1px solid var(--line); padding: 8px 12px; border-radius: 4px; }
+.formula i { color: var(--muted); font-style: normal; }
+.examples { display: grid; gap: 8px; }
+.ex { font-family: var(--font-mono); font-size: 0.82rem; padding: 10px 14px; border-left: 2px solid var(--brass); background: var(--surface); overflow-x: auto; white-space: nowrap; }
+
+/* FODA */
+.swot { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.swot > div { background: var(--bg); padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.swot ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 0.93rem; }
+.swot .good { color: var(--brass); }
+.swot .bad { color: var(--wine); }
+
+/* Palancas */
+.levers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.lever { display: grid; gap: 6px; align-content: start; }
+.lever .label { color: var(--muted); }
+
+/* Conceptos */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: inherit; font-size: 0.85rem; background: transparent; color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--brass); color: var(--bg); border-color: var(--brass); }
+.filters button:focus-visible, .copy:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.concepts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.concept { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.concept .top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.concept .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.badge { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wine); border: 1px solid var(--wine); border-radius: 3px; padding: 2px 6px; white-space: nowrap; }
+.hook { font-family: var(--font-display); font-size: 1.12rem; line-height: 1.4; margin: 0; padding-left: 14px; border-left: 2px solid var(--brass); }
+.meta { font-size: 0.88rem; color: var(--muted); display: grid; gap: 6px; }
+.meta b { color: var(--fg); font-weight: 600; }
+.yt { font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); word-break: break-word; }
+.copy { justify-self: start; font: inherit; font-size: 0.8rem; background: transparent; color: var(--brass); border: 1px solid var(--line); border-radius: 4px; padding: 5px 10px; cursor: pointer; }
+
+/* Formatos */
+.formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.format { display: grid; gap: 8px; align-content: start; }
+.format .dur { font-family: var(--font-mono); font-size: 0.8rem; color: var(--brass); }
+.format ul { margin: 0; padding-left: 18px; font-size: 0.93rem; display: grid; gap: 6px; }
+
+/* Roadmap */
+.road { overflow-x: auto; }
+.timeline { display: grid; grid-template-columns: 140px repeat(4, 1fr); min-width: 640px; font-size: 0.85rem; }
+.timeline .h { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); }
+.timeline .row-label { padding: 14px 8px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.timeline .cell { border-bottom: 1px solid var(--line); padding: 10px 4px; position: relative; }
+.bar { position: absolute; top: 14px; height: 18px; border-radius: 3px; background: var(--brass); opacity: 0.85; }
+.bar.cont { background: repeating-linear-gradient(90deg, var(--wine) 0 10px, transparent 10px 14px); opacity: 1; }
+.phases { display: grid; gap: 14px; }
+.phase { display: grid; grid-template-columns: 110px 1fr; gap: 16px; }
+.phase .label { padding-top: 3px; }
+.phase > div { min-width: 0; }
+
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 520px) {
+  .pillar { grid-template-columns: 40px 1fr; }
+  .phase { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .concept { transition: border-color .2s; }
+  .concept:hover { border-color: var(--brass); }
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="label">Auditoría de canal · YouTube</span>
+  <h1>Kiara Soul Music</h1>
+  <p class="lede">Música de despecho elegante, sanación emocional y dignidad personal. Diagnóstico del catálogo actual y 10 conceptos de vídeo pensados para CTR, retención y formato corto.</p>
+  <div class="genres">
+    <span class="chip">Jazz Bolero</span><span class="chip">Bolero-Soul</span><span class="chip">Spanish Soul Blues</span><span class="chip">Bolero Romántico</span>
+  </div>
+  <div class="facts">
+    <div class="fact"><strong>36</strong><span>producciones analizadas</span></div>
+    <div class="fact"><strong>5</strong><span>pilares temáticos</span></div>
+    <div class="fact"><strong>10</strong><span>conceptos nuevos</span></div>
+    <div class="fact"><strong>4</strong><span>fases de roadmap</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Diagnóstico</span>
+    <h2>Identidad sonora y estética</h2>
+  </div>
+  <p>Bolero romántico tradicional con armonías de jazz contemporáneo y la carga lírica del soul y el blues en español. La voz es íntima, serena y firme: muestra vulnerabilidad sin victimismo.</p>
+  <p class="muted">Imaginería recurrente: noche, humo de bar, copas de vino, balcones bajo la luna, lluvia en el cristal, piano de cola, requinto y guitarras melancólicas.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Pilares temáticos</span>
+    <h2>Lo que la audiencia viene a buscar</h2>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><span class="n">1</span><div><h3>Empoderamiento y dignidad · «Yo me elijo»</h3><p>Rechazo a las migas de amor, límites claros, amor propio frente a la indiferencia.</p><p class="songs">Brindo Por Mí, Demasiada Mujer, Merezco Más, Ya No Me Pierdo, Ámame o Vete, Soy Feliz Aunque Les Duela</p></div></div>
+    <div class="pillar"><span class="n">2</span><div><h3>Cierre tardío · «Llegaste tarde»</h3><p>La expareja vuelve cuando el duelo ya terminó y ella ha sanado.</p><p class="songs">Volviste Cuando Ya No Te Quería, Te Extraño Pero No Te Quiero de Vuelta, Lo Siento Ya Te Olvidé, Te Arrepentirás, Jamás Volveré A Ti</p></div></div>
+    <div class="pillar"><span class="n">3</span><div><h3>Nostalgia elegante y lo inconcluso</h3><p>Amor interrumpido; cartas, palabras y bailes que se quedaron pendientes.</p><p class="songs">Las Cartas Que Nunca Envié, La Canción Que Nunca Bailamos, Lo Que Calló Mi Corazón, Cuando Vuelvas a Mi Balcón, Bajo El Mismo Cielo</p></div></div>
+    <div class="pillar"><span class="n">4</span><div><h3>Decepción y traición</h3><p>Descubrir el engaño, la costumbre frente al amor real, la copa de despedida.</p><p class="songs">La Copa Que Bebí Por Ti, No Me Mientas Más, Amor o Costumbre, Costumbres, No Supiste Quererme, Mi Pecado Fue Amarte</p></div></div>
+    <div class="pillar"><span class="n">5</span><div><h3>Esperanza en el amor verdadero</h3><p>Romanticismo sano y un amor tranquilo que reconstruye la confianza.</p><p class="songs">Ese Hombre, Nuestro Juramento, El Día Que Te Vi, La Última Noche</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Títulos</span>
+    <h2>La fórmula de tres bloques</h2>
+  </div>
+  <div class="formula"><b>Frase emocional</b><i>|</i><b>Subgénero</b><i>|</i><b>Kiara Soul</b></div>
+  <div class="examples">
+    <div class="ex">Volviste Cuando Ya No Te Quería | Bolero-Soul Sobre un Amor que Llegó Demasiado Tarde | Kiara Soul</div>
+    <div class="ex">Las Cartas Que Nunca Envié | Jazz Blues Romántico | Kiara Soul</div>
+    <div class="ex">Noches de Jazz Bolero con Kiara Soul | 1 Hora de musica romántica para Volver a Creer</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">FODA</span>
+    <h2>Fortalezas, oportunidades, debilidades y amenazas</h2>
+  </div>
+  <div class="swot">
+    <div><span class="label good">Fortalezas</span><ul>
+      <li>Nicho claro: fusión jazz bolero / soul con poca competencia de igual calidad lírica en español.</li>
+      <li>Frases contundentes, fáciles de compartir y con las que el oyente se identifica.</li>
+      <li>Narrativa visual y sonora coherente: elegancia, noche y dignidad.</li></ul></div>
+    <div><span class="label good">Oportunidades</span><ul>
+      <li>Audio hooks de 15–30 s para Shorts, Reels y TikTok (lipsync y POV).</li>
+      <li>Ángulos sin explorar: la boda del ex, la nueva pareja, la carta devuelta.</li>
+      <li>Compilaciones por estado de ánimo: <em>Jazz Bolero para sanar en silencio</em>.</li></ul></div>
+    <div><span class="label bad">Debilidades</span><ul>
+      <li>Riesgo de que las letras suenen repetidas si no cambian los detonantes narrativos.</li>
+      <li>Casi todo es balada lenta o mid-tempo. Faltan bolero-rumba o jazz-bossa.</li></ul></div>
+    <div><span class="label bad">Amenazas</span><ul>
+      <li>Dependencia del descubrimiento por búsqueda con títulos largos y poca comunidad directa.</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Estrategia viral</span>
+    <h2>Las tres palancas que debe activar cada vídeo</h2>
+  </div>
+  <div class="levers">
+    <div class="lever"><span class="label">Título</span><h3>Tensión narrativa</h3><p>El título cuenta una mini historia o plantea un conflicto reconocible al instante.</p></div>
+    <div class="lever"><span class="label">0:00 – 0:15</span><h3>Audio hook</h3><p>La primera frase es una sentencia que la gente quiere usar como estado o fondo de vídeo.</p></div>
+    <div class="lever"><span class="label">POV</span><h3>Identificación inmediata</h3><p>El oyente siente que la canción habla exactamente de su situación.</p></div>
+  </div>
+</section>
+
+<section id="conceptos">
+  <div class="sec-head">
+    <span class="label">Propuestas</span>
+    <h2>10 conceptos de canción y vídeo</h2>
+    <p class="muted">Filtra por pilar. Los marcados como «Fase 1» son los primeros en producirse.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filtrar por pilar">
+    <button type="button" data-f="all" aria-pressed="true">Todos</button>
+    <button type="button" data-f="fase1" aria-pressed="false">Fase 1</button>
+    <button type="button" data-f="1" aria-pressed="false">Dignidad</button>
+    <button type="button" data-f="2" aria-pressed="false">Llegaste tarde</button>
+    <button type="button" data-f="3" aria-pressed="false">Nostalgia</button>
+    <button type="button" data-f="4" aria-pressed="false">Decepción</button>
+  </div>
+  <div class="concepts" id="concepts"></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Distribución</span>
+    <h2>Formatos por plataforma</h2>
+  </div>
+  <div class="formats">
+    <div class="format"><span class="dur">3–4 min</span><h3>YouTube vídeo oficial</h3><ul><li>Mantener el arte vintage de bar de jazz: humo, lluvia y luz de vela animados con sutileza.</li></ul></div>
+    <div class="format"><span class="dur">1–3 h</span><h3>Mixes y playlists</h3><ul><li><em>Jazz Bolero para Noches de Lluvia y Vino | Kiara Soul</em></li><li><em>Bolero-Soul para Mujeres que No Vuelven Atrás | Selección Especial</em></li></ul></div>
+    <div class="format"><span class="dur">15–30 s</span><h3>Shorts, Reels, TikTok</h3><ul><li>Audio hook con la letra en tipografía elegante sobre fondo cinematográfico.</li><li>CTA directa: «Guarda esta frase si hoy decidiste no escribirle».</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Roadmap</span>
+    <h2>Plan de acción a cuatro meses</h2>
+  </div>
+  <div class="road">
+    <div class="timeline" aria-hidden="true">
+      <div class="h"></div><div class="h">Mes 1</div><div class="h">Mes 2</div><div class="h">Mes 3</div><div class="h">Mes 4</div>
+      <div class="row-label">Fase 1</div><div class="cell"><span class="bar" style="left:4px;right:0"></span></div><div class="cell"><span class="bar" style="left:0;right:4px"></span></div><div class="cell"></div><div class="cell"></div>
+      <div class="row-label">Fase 2</div><div class="cell"><span class="bar cont" style="left:4px;right:0"></span></div><div class="cell"><span class="bar cont" style="left:0;right:0"></span></div><div class="cell"><span class="bar cont" style="left:0;right:0"></span></div><div class="cell"><span class="bar cont" style="left:0;right:4px"></span></div>
+      <div class="row-label">Fase 3</div><div class="cell"></div><div class="cell"><span class="bar" style="left:4px;right:4px"></span></div><div class="cell"></div><div class="cell"></div>
+      <div class="row-label">Fase 4</div><div class="cell"></div><div class="cell"></div><div class="cell"><span class="bar" style="left:4px;right:0"></span></div><div class="cell"><span class="bar" style="left:0;right:4px"></span></div>
+    </div>
+  </div>
+  <div class="phases">
+    <div class="phase"><span class="label">Fase 1 · M1–2</span><div><h3>Singles virales</h3><p>Lanzar los conceptos con más tensión: <em>Me Buscas en Otra</em>, <em>Fui Mucho Para Tu Miedo</em> y <em>Tu Nueva Novia Me Escucha</em>.</p></div></div>
+    <div class="phase"><span class="label">Fase 2 · continuo</span><div><h3>Formato corto</h3><p>3 Shorts/Reels por cada canción, centrados solo en su frase de oro.</p></div></div>
+    <div class="phase"><span class="label">Fase 3 · M2</span><div><h3>Catálogo existente</h3><p>Reorganizar los 36 temas en 4 playlists temáticas oficiales para alargar la reproducción automática.</p></div></div>
+    <div class="phase"><span class="label">Fase 4 · M3–4</span><div><h3>Versiones y colaboraciones</h3><p>Versiones acústicas (piano y voz, guitarra y voz) de <em>Volviste Cuando Ya No Te Quería</em> y <em>Brindo Por Mí</em>.</p></div></div>
+  </div>
+</section>
+
+<footer>Auditoría elaborada para el desarrollo de Kiara Soul Music · octubre 2026</footer>
+</div>
+
+<script>
+const PILLARS = { 1: "Dignidad", 2: "Llegaste tarde", 3: "Nostalgia", 4: "Decepción" };
+const CONCEPTS = [
+  { t: "Me Buscas en Otra", p: 2, f1: true, yt: "Me Buscas en Otra | Jazz Bolero para el Amor que No Supiste Reemplazar | Kiara Soul", g: "Jazz bolero romántico con saxofón y piano íntimo", h: "Puedes cambiar de nombre, de cama y de ciudad... pero en cada mirada ajena me vuelves a buscar.", s: "La expareja intenta encontrar la intensidad de ella en relaciones superficiales.", v: "TikTok de superación personal y comparación." },
+  { t: "Fui Mucho Para Tu Miedo", p: 1, f1: true, yt: "Fui Mucho Para Tu Miedo | Bolero-Soul de la Mujer que No Supiste Sostener | Kiara Soul", g: "Spanish soul blues", h: "No te faltó amor ni te faltó destino... te quedó grande el fuego y elegiste el frío.", s: "La inmadurez de él lo lleva a huir de una relación profunda por miedo al compromiso.", v: "Continúa la línea de Demasiada Mujer y Nos Quedó Grande El Amor." },
+  { t: "La Boda a la Que No Fui", p: 3, yt: "La Boda a la Que No Fui | Bolero Jazz Romántico Para un Adiós en Silencio | Kiara Soul", g: "Bolero jazz con requinto y cuerdas", h: "Hoy te juras para siempre frente a otro altar... y yo brindo desde lejos por lo que no supiste cuidar.", s: "Se entera de la boda de su antiguo amor y se despide con elegancia, deseándole paz.", v: "Storytelling cinematográfico de alta retención." },
+  { t: "Si Alguna Vez Me Extrañas", p: 3, yt: "Si Alguna Vez Me Extrañas | Jazz Bolero Para Cuando el Orgullo Pase | Kiara Soul", g: "Jazz nocturno lento con contrabajo y escobillas", h: "Si alguna vez me extrañas, no busques mi número en el teléfono... búscame en las canciones que dijiste que eran solo tuyas.", s: "La música es el único sitio donde él podrá volver a oír a quien dejó ir por orgullo.", v: "Audio de tendencia en Instagram Reels." },
+  { t: "Tu Nueva Novia Me Escucha", p: 2, f1: true, yt: "Tu Nueva Novia Me Escucha | Spanish Jazz - Bolero de Ironía y Verdad | Kiara Soul", g: "Spanish jazz-bolero con ironía sutil", h: "Qué ironía del destino, qué juego tan puntual... ella buscando consejos en la voz que no pudiste olvidar.", s: "La nueva pareja escucha a Kiara Soul para entender lo que él no sabe decir.", v: "Título de CTR alto por curiosidad." },
+  { t: "El Vestido Que No Me Pusiste", p: 1, yt: "El Vestido Que No Me Pusiste | Bolero Romántico de las Promesas Olvidadas | Kiara Soul", g: "Bolero clásico estilo trío con toques soul", h: "Quedó colgada la noche, quedó guardada la ilusión... y yo me vestí de reina para bailar con mi propia voz.", s: "Tras plantones y promesas vacías, se arregla para sí misma y sale a celebrar.", v: "Transiciones de moda y maquillaje tipo Get Ready With Me." },
+  { t: "Le Dije a Mi Madre Que Ya Te Olvidé", p: 3, yt: "Le Dije a Mi Madre Que Ya Te Olvidé | Bolero-Soul para Sanar la Mentira | Kiara Soul", g: "Bolero-soul acústico, guitarra y voz", h: "Le dije a mi madre que ya no dolías al hablar... pero las madres leen los ojos que intentan disimular.", s: "Fingir que está bien ante el mundo mientras sana en familia, con la complicidad de su madre.", v: "Identificación familiar y maternal." },
+  { t: "No Vuelvas Con Flores", p: 2, yt: "No Vuelvas Con Flores | Jazz Bolero de Dignidad y Cierre Absoluto | Kiara Soul", g: "Jazz bolero mid/up-tempo con bronces sutiles", h: "No me traigas rosas a un jardín que dejaste secar... las disculpas que llegan tarde solo sirven para estorbar.", s: "Rechazo a reconciliaciones cursis cuando el daño ya está hecho.", v: "Himno de empoderamiento con ritmo más rápido (cubre la debilidad de tempo)." },
+  { t: "La Última Copa La Pago Yo", p: 4, yt: "La Última Copa La Pago Yo | Spanish Soul Blues para la Despedida Final | Kiara Soul", g: "Spanish soul blues melancólico", h: "Ponle precio a tus mentiras y ponle fin a este bar... la última copa la pago yo para no volverte a deber nada jamás.", s: "Pagar la cuenta del bar como cierre definitivo de la deuda emocional.", v: "Secuela directa de La Copa Que Bebí Por Ti." },
+  { t: "Aprendí a Quererme Sin Ti", p: 1, yt: "Aprendí a Quererme Sin Ti | Bolero Jazz de Renovación y Paz Interior | Kiara Soul", g: "Bolero jazz luminoso y cálido", h: "Pensé que al irte me quedaba vacía... y descubrí que la casa por fin era mía.", s: "La soledad se convierte en paz y en espacio propio.", v: "Mensaje de esperanza tras el duelo." }
+];
+const grid = document.getElementById("concepts");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+grid.innerHTML = CONCEPTS.map((c, i) => `
+  <article class="concept" data-p="${c.p}" data-f1="${c.f1 ? 1 : 0}">
+    <div class="top"><span class="num">${String(i + 1).padStart(2, "0")} · ${PILLARS[c.p]}</span>${c.f1 ? '<span class="badge">Fase 1</span>' : ""}</div>
+    <h3>${esc(c.t)}</h3>
+    <blockquote class="hook">«${esc(c.h)}»</blockquote>
+    <div class="meta"><span><b>Sonido:</b> ${esc(c.g)}</span><span><b>Historia:</b> ${esc(c.s)}</span><span><b>Potencial:</b> ${esc(c.v)}</span></div>
+    <div class="yt">${esc(c.yt)}</div>
+    <button type="button" class="copy" data-i="${i}">Copiar título</button>
+  </article>`).join("");
+
+grid.addEventListener("click", e => {
+  const b = e.target.closest(".copy"); if (!b) return;
+  const text = CONCEPTS[b.dataset.i].yt;
+  const done = () => { b.textContent = "Copiado"; setTimeout(() => b.textContent = "Copiar título", 1600); };
+  try {
+    navigator.clipboard.writeText(text).then(done, () => selectText(b));
+  } catch { selectText(b); }
+});
+function selectText(b) {
+  const el = b.previousElementSibling, r = document.createRange();
+  r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  b.textContent = "Seleccionado, pulsa copiar";
+}
+
+const btns = document.querySelectorAll(".filters button");
+function apply(f) {
+  btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.f === f));
+  grid.querySelectorAll(".concept").forEach(el => {
+    el.hidden = !(f === "all" || (f === "fase1" ? el.dataset.f1 === "1" : el.dataset.p === f));
+  });
+  try { localStorage.setItem("ks-filter", f); } catch {}
+}
+btns.forEach(b => b.addEventListener("click", () => apply(b.dataset.f)));
+try { const saved = localStorage.getItem("ks-filter"); if (saved) apply(saved); } catch {}
+</script>
