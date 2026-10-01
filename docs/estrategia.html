@@ -1,0 +1,373 @@
+<title>Estrategia Kiara Soul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: misma identidad que la auditoría (bar de jazz nocturno). Datos arriba, decisión de Ódiame en el centro, plan al final. Dark-first. */
+:root {
+  --bg: #12141c;
+  --surface: #1b1e29;
+  --line: #2c3040;
+  --fg: #ece6da;
+  --muted: #a39d92;
+  --brass: #d6a85a;
+  --wine: #c4566a;
+  --c-amor: #b7843a;
+  --c-desp: #7d8bd0;
+  --good: #6fbf8a;
+  --font-display: "Gloock", "Georgia", serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f6f3ee; --surface: #fffdf9; --line: #ddd6ca; --fg: #1d1b22; --muted: #66605a;
+    --brass: #8f6418; --wine: #9a2e42; --c-amor: #9a6a1c; --c-desp: #4b5fa8; --good: #2f7a4a; color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f6f3ee; --surface: #fffdf9; --line: #ddd6ca; --fg: #1d1b22; --muted: #66605a;
+  --brass: #8f6418; --wine: #9a2e42; --c-amor: #9a6a1c; --c-desp: #4b5fa8; --good: #2f7a4a; color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2.3rem, 6.5vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0; max-width: 65ch; }
+ul, ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+section { display: grid; gap: 24px; }
+.sec-head { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 20px; }
+em { font-style: italic; }
+
+header { display: grid; gap: 20px; }
+header .lede { font-size: 1.15rem; color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 32px; }
+.fact strong { display: block; font-family: var(--font-display); font-size: 2.1rem; font-weight: 400; color: var(--brass); line-height: 1; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+/* Hallazgo principal */
+.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.verdict > div { background: var(--bg); padding: 20px; display: grid; gap: 4px; align-content: start; }
+.verdict strong { font-family: var(--font-display); font-weight: 400; font-size: 2.4rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.verdict .amor strong { color: var(--c-amor); }
+.verdict .desp strong { color: var(--c-desp); }
+
+/* Gráfico */
+.chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--sw); }
+.bars { display: grid; gap: 2px; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 15rem) 1fr; gap: 12px; align-items: center; font-size: 0.82rem; position: relative; }
+.bar-row .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); text-align: right; }
+.bar-track { position: relative; height: 16px; display: flex; align-items: center; gap: 8px; }
+.bar { height: 12px; border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar.amor { background: var(--c-amor); }
+.bar.desp { background: var(--c-desp); }
+.bar.mix { background: var(--muted); }
+.val { font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg); font-variant-numeric: tabular-nums; }
+.bar-row:hover .name, .bar-row:focus-within .name { color: var(--fg); }
+.median-note { font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 560px) { .bar-row { grid-template-columns: minmax(0, 9rem) 1fr; } }
+
+/* Tres columnas */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 32px; }
+.col { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.col ul { font-size: 0.94rem; }
+.tag { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; justify-self: start; border: 1px solid currentColor; }
+.tag.ok { color: var(--good); }
+.tag.ko { color: var(--wine); }
+.tag.up { color: var(--brass); }
+
+/* Ódiame */
+.hero-song { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 4vw, 36px); display: grid; gap: 20px; }
+.hero-song h2 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+.titles { display: grid; gap: 10px; }
+.title-opt { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.title-opt.pick { border-color: var(--brass); }
+.title-opt code { font-family: var(--font-mono); font-size: 0.85rem; overflow-wrap: anywhere; }
+.title-opt .score { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.title-opt.pick .score { color: var(--brass); }
+.title-opt .why { grid-column: 1 / -1; font-size: 0.85rem; color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 520px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+th.num { text-align: right; }
+.copybox { display: grid; gap: 8px; }
+.copybox pre { margin: 0; font-family: var(--font-mono); font-size: 0.8rem; white-space: pre-wrap; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 14px; overflow-x: auto; }
+.copy { justify-self: start; font: inherit; font-size: 0.8rem; background: transparent; color: var(--brass); border: 1px solid var(--line); border-radius: 4px; padding: 5px 10px; cursor: pointer; }
+.copy:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* Lanzamiento */
+.timeline { display: grid; gap: 0; }
+.step { display: grid; grid-template-columns: 76px 1fr; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.step .day { font-family: var(--font-mono); font-size: 0.85rem; color: var(--brass); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.step > div { min-width: 0; display: grid; gap: 4px; }
+
+.asks { display: grid; gap: 12px; }
+.ask { display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
+.ask .n { font-family: var(--font-display); font-size: 1.4rem; color: var(--wine); line-height: 1.1; }
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="label">Estrategia de canal · octubre 2026</span>
+  <h1>Kiara Soul: qué funcionó y qué hacemos ahora</h1>
+  <p class="lede">Análisis de los 36 vídeos largos y los Shorts con datos públicos de vidIQ, y el plan de packaging para «Ódiame», el dueto con Dorian.</p>
+  <div class="facts">
+    <div class="fact"><strong>603</strong><span>suscriptores</span></div>
+    <div class="fact"><strong>137.8K</strong><span>visualizaciones totales</span></div>
+    <div class="fact"><strong>130</strong><span>vídeos publicados</span></div>
+    <div class="fact"><strong>+36%</strong><span>visualizaciones en 30 días</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="label">El hallazgo principal</span>
+    <h2>Las canciones de amor y anhelo rinden el doble que las de despecho</h2>
+  </div>
+  <p>La auditoría anterior ponía el empoderamiento y el «llegaste tarde» como núcleo del canal. Los números dicen otra cosa: dos de los tres vídeos más vistos son canciones de amor esperanzado, y las secuelas de despecho de septiembre son las que menos funcionan.</p>
+  <div class="verdict">
+    <div class="amor"><strong>1.171</strong><span class="small">mediana de vistas · amor y anhelo (11 vídeos)</span></div>
+    <div class="desp"><strong>549</strong><span class="small">mediana de vistas · despecho y dignidad (23 vídeos)</span></div>
+    <div><strong>3</strong><span class="small">vídeos explican el 51% de las vistas de vídeos largos</span></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="legend">
+      <span style="--sw: var(--c-amor)">Amor y anhelo</span>
+      <span style="--sw: var(--c-desp)">Despecho y dignidad</span>
+      <span style="--sw: var(--muted)">Mix de 1 hora</span>
+    </div>
+    <div class="bars" id="bars" role="table" aria-label="Vistas por vídeo largo"></div>
+    <p class="median-note">Vistas a 1 de octubre de 2026. «La Última Noche» se excluye porque lleva 4 días publicada (va a 4,3 vistas por hora, la segunda mejor velocidad del canal ahora mismo).</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Los dos vídeos que se están viralizando</span>
+    <h2>Qué tienen en común Ese Hombre y Nuestro Juramento</h2>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>Ese Hombre</th><th>Nuestro Juramento</th><th>Media del canal</th></tr></thead>
+      <tbody>
+        <tr><td>Vistas</td><td class="num">9.220</td><td class="num">7.943</td><td class="num">677 (mediana)</td></tr>
+        <tr><td>Veces sobre lo normal del canal (vidIQ)</td><td class="num">22×</td><td class="num">32×</td><td class="num">1–3×</td></tr>
+        <tr><td>Me gusta por cada 100 vistas</td><td class="num">2,6</td><td class="num">1,7</td><td class="num">2–4</td></tr>
+        <tr><td>Tema</td><td>Un hombre que devuelve la fe en el amor</td><td>Promesa de amor para siempre</td><td>Despecho en 2 de cada 3</td></tr>
+        <tr><td>Bloque central del título</td><td>«Jazz Romántico que Te Hará Creer en el Amor»</td><td>«Bolero Jazz Para Enamorar»</td><td>«Spanish Jazz - Bolero»</td></tr>
+        <tr><td>Duración</td><td class="num">4:23</td><td class="num">4:43</td><td class="num">4:00–4:50</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>La fórmula que se repite: <b>amor que suma</b> en vez de amor que se pierde, y un título que dice <b>para qué sirve la canción</b> (enamorar, creer, dedicar). Son canciones que se mandan a la pareja, y eso las mueve fuera de YouTube. <em>Ese Hombre</em> sigue sumando 6,4 vistas por hora dos meses después, señal de que YouTube la sigue recomendando.</p>
+  <p class="muted small">Los me gusta por vista son normales, así que el empuje viene del clic y de las recomendaciones, no de una reacción extraordinaria. Para confirmarlo hacen falta las fuentes de tráfico (ver punto 4 al final).</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Diagnóstico</span>
+    <h2>Qué funcionó, qué no y qué cambiar</h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <span class="tag ok">Funcionó</span>
+      <ul>
+        <li><b>Amor que reconstruye.</b> <em>Ese Hombre</em> (9.220) y <em>Nuestro Juramento</em> (7.943 en 12 días) son los dos mayores éxitos.</li>
+        <li><b>Títulos con promesa de uso.</b> Los tres vídeos con más arranque usan «Para Enamorar» o «Te Hará Creer en el Amor» en el bloque central.</li>
+        <li><b>Frases rotundas de dignidad.</b> <em>Demasiada Mujer</em> (5.303) es el único éxito de despecho y lleva 6 meses sumando.</li>
+        <li><b>Shorts constantes.</b> Casi todos superan las 1.100 vistas, y el mejor llega a 2.777.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="tag ko">No funcionó</span>
+      <ul>
+        <li><b>Secuelas de «volviste tarde».</b> <em>Volviste Cuando Ya No Te Quería</em> (353) y <em>Te Extraño, Pero No Te Quiero de Vuelta</em> (281). El público ya ha oído esa historia en este canal.</li>
+        <li><b>Bloque central genérico.</b> Los títulos con solo «Spanish Jazz - Bolero» se quedan abajo: <em>Amor o Costumbre</em> (161), <em>A Tu Ritmo No</em> (195), <em>Merezco Más</em> (275).</li>
+        <li><b>Mix de 1 hora.</b> 415 vistas. Un recopilatorio sin palabra clave de búsqueda y sin éxitos dentro no arrastra a nadie.</li>
+        <li><b>Shorts que no convierten.</b> Unas 90.000 vistas en Shorts y solo 603 suscriptores. Los Shorts no llevan a la canción completa.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="tag up">Cambiar</span>
+      <ul>
+        <li><b>Mezcla 60/40.</b> 6 de cada 10 lanzamientos de amor y anhelo, 4 de despecho con frase fuerte.</li>
+        <li><b>1 lanzamiento grande por semana.</b> Ahora salen 2. Menos canciones con más promoción cada una.</li>
+        <li><b>Bloque central con promesa.</b> «para enamorar», «para dedicar», «para sanar». Retitular 3 vídeos flojos como prueba.</li>
+        <li><b>Cada Short enlaza su canción</b> con «vídeo relacionado» y comentario fijado.</li>
+        <li><b>Mix con palabra clave real.</b> «boleros románticos» tiene 55.900 búsquedas al mes y competencia 25/100. Abrir el mix con <em>Ese Hombre</em> y <em>Nuestro Juramento</em>.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted small">De los 10 conceptos de la auditoría, suben de prioridad los que encajan con amor y anhelo: <em>Si Alguna Vez Me Extrañas</em>, <em>La Boda a la Que No Fui</em> y <em>Aprendí a Quererme Sin Ti</em>. Bajan <em>No Vuelvas Con Flores</em> y <em>Tu Nueva Novia Me Escucha</em>, que repiten el «volviste tarde».</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Lanzamiento especial</span>
+    <h2>«Ódiame» con Dorian</h2>
+  </div>
+  <div class="hero-song">
+    <p>El título sirve, con una condición. «Ódiame» es un clásico: el vals de Rafael Otero sobre el poema de Federico Barreto, versionado por Julio Jaramillo, Los Tres Reyes, Charlie Zaa y muchos más. Eso juega a favor y en contra.</p>
+    <div class="cols">
+      <div class="col">
+        <span class="tag ok">A favor</span>
+        <ul>
+          <li>«odiame» tiene 23.100 búsquedas al mes y ha subido un 51% respecto a su media.</li>
+          <li>Hay dos duetos de bolero muy vistos con ese título: Charlie Zaa con Carlos Rivera (44,9 M) y La Santa Cecilia con Noel Schajris (23,7 M). Si el algoritmo asocia tu vídeo a esos, puede recomendarlo junto a ellos.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="tag ko">En contra</span>
+        <ul>
+          <li>Por la búsqueda «Ódiame» a secas no vas a aparecer arriba durante meses. Compites con vídeos de 5 a 45 millones.</li>
+          <li>Quien busca el clásico y encuentra otra letra puede irse en 10 segundos. Eso hunde la retención.</li>
+          <li>«Dorian» también es una banda española con 96 M de vistas. Solo con «Dorian», la gente puede confundirse.</li>
+        </ul>
+      </div>
+    </div>
+    <p><b>Por qué es el primer caso de la nueva estrategia:</b> es pasión entre dos personas, el tema que mejor funciona, y el dueto suma la audiencia de Dorian. Le falta lo que tienen los dos éxitos: decir en el título qué historia cuenta.</p>
+    <p><b>Conclusión:</b> mantén «Ódiame» como primera palabra para heredar las búsquedas y las recomendaciones, y añade una segunda frase que deje claro que es una historia nueva a dos voces.</p>
+
+    <div class="titles">
+      <span class="label">Títulos puntuados con vidIQ</span>
+      <div class="title-opt pick"><code>Ódiame, Pero No Me Olvides | Bolero a Dúo | Kiara Soul &amp; Dorian</code><span class="score">82/100 · recomendado</span><span class="why">Usa la idea del clásico («el rencor hiere menos que el olvido»), deja claro que es otra canción y anuncia el dueto. Cámbialo por tu frase de oro cuando vea la letra.</span></div>
+      <div class="title-opt"><code>Ódiame | Bolero a Dúo | Kiara Soul ft. Dorian</code><span class="score">82/100 · alternativa para A/B</span><span class="why">El más limpio para búsqueda, pero puede parecer otra versión del clásico.</span></div>
+      <div class="title-opt"><code>Ódiame | El Bolero de Dos Amantes que No Saben Decirse Adiós | Kiara Soul ft. Dorian</code><span class="score">79/100</span><span class="why">Cuenta la historia, pero es largo y se corta en móvil.</span></div>
+      <div class="title-opt"><code>Ódiame, Que el Olvido Duele Más | Bolero Romántico a Dúo | Kiara Soul &amp; Dorian</code><span class="score">77/100</span></div>
+      <div class="title-opt"><code>Él Le Pidió Que Lo Odiara | Ódiame - Kiara Soul &amp; Dorian (Bolero a Dúo)</code><span class="score">77/100</span><span class="why">Al empezar por otra frase, pierde la relación con las búsquedas de «Ódiame».</span></div>
+    </div>
+    <p class="muted small">Las diferencias de puntuación son pequeñas. Sube el recomendado y prueba el segundo con la función Probar y comparar de YouTube Studio durante 7 días.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Versión de «Ódiame» en YouTube</th><th>Tipo</th><th class="num">Vistas</th></tr></thead>
+        <tbody>
+          <tr><td>Charlie Zaa ft. Carlos Rivera</td><td>Dueto bolero, en vivo</td><td class="num">44.878.854</td></tr>
+          <tr><td>Los Tres Reyes (subida de fan)</td><td>Trío clásico</td><td class="num">24.246.395</td></tr>
+          <tr><td>La Santa Cecilia ft. Noel Schajris</td><td>Dueto, en vivo</td><td class="num">23.734.348</td></tr>
+          <tr><td>Kika Edgar</td><td>Bolero con trío</td><td class="num">14.978.918</td></tr>
+          <tr><td>Cazzu</td><td>Canción distinta, mismo título</td><td class="num">9.136.433</td></tr>
+          <tr><td>Saiko</td><td>Canción distinta, mismo título</td><td class="num">6.285.724</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted small">Cazzu y Saiko demuestran que una canción nueva con ese título puede funcionar si se diferencia desde la miniatura y la primera frase.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Packaging</span>
+    <h2>Miniatura, descripción y colaboración</h2>
+  </div>
+  <div class="cols">
+    <div class="col">
+      <h3>Miniatura</h3>
+      <ul>
+        <li>Los dos personajes en el mismo plano, con tensión: cerca y sin mirarse, o uno de espaldas.</li>
+        <li>Un fotograma real del vídeo, con luz cálida de bar sobre fondo oscuro. Así se aparta de las miniaturas de los clásicos, que son fotos de época o actuaciones en vivo.</li>
+        <li>Texto máximo de 2 palabras. «ÓDIAME» o la frase del título, nunca las dos.</li>
+        <li>Haz 3 variantes y pruébalas también con Probar y comparar.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Colaboración</h3>
+      <ul>
+        <li>Publica con la función Colaboraciones de YouTube para que el vídeo salga en los dos canales y sume las vistas en uno solo.</li>
+        <li>Estreno a la misma hora en ambos perfiles, con chat abierto.</li>
+        <li>Usa el nombre artístico completo de Dorian en el título si tiene apellido o alias, para no competir con la banda española.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copybox">
+    <span class="label">Primeras líneas de la descripción (provisional)</span>
+    <pre id="desc">«Ódiame, pero no me olvides.» Kiara Soul y Dorian cantan a dos voces la historia de dos amantes que prefieren odiarse antes que olvidarse.
+
+Un bolero original inspirado en el espíritu del clásico «Ódiame». Si te gustan los boleros románticos a dúo, esta canción es para ti.
+
+🎧 Escucha también: Ese Hombre · Nuestro Juramento · Demasiada Mujer
+
+#Odiame #BoleroADuo #BolerosRomanticos #KiaraSoul</pre>
+    <button type="button" class="copy" data-target="desc">Copiar descripción</button>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Calendario de lanzamiento</span>
+    <h2>De 7 días antes a 14 días después</h2>
+  </div>
+  <div class="timeline">
+    <div class="step"><span class="day">D-7</span><div><h3>Anuncio</h3><p>Short de 15 s solo con la voz de Dorian y la pregunta «¿Prefieres que te odien o que te olviden?». Publicación en Comunidad con la miniatura y el enlace al estreno.</p></div></div>
+    <div class="step"><span class="day">D-3</span><div><h3>Segundo teaser</h3><p>Short con la respuesta de Kiara. Los dos Shorts juntos forman la conversación.</p></div></div>
+    <div class="step"><span class="day">D0</span><div><h3>Estreno</h3><p>Colaboración en ambos canales a la hora con más audiencia. Comentario fijado con la frase de oro. Esa semana no se publica otra canción.</p></div></div>
+    <div class="step"><span class="day">D+1</span><div><h3>Short del estribillo</h3><p>El momento en que se cruzan las dos voces. Enlazado como vídeo relacionado.</p></div></div>
+    <div class="step"><span class="day">D+4</span><div><h3>Short de escena</h3><p>El plano más cinematográfico del videoclip, con la letra encima.</p></div></div>
+    <div class="step"><span class="day">D+7</span><div><h3>Revisión</h3><p>Comparar CTR y retención con <em>Nuestro Juramento</em>. Elegir el título ganador de la prueba A/B.</p></div></div>
+    <div class="step"><span class="day">D+14</span><div><h3>Versión íntima</h3><p>Versión acústica a piano o un Short de «cómo se grabó» para alargar la vida de la canción.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="label">Para seguir</span>
+    <h2>Lo que necesito de ti</h2>
+  </div>
+  <div class="asks">
+    <div class="ask"><span class="n">1</span><p><b>La letra de «Ódiame».</b> Con ella saco la frase de oro, cierro el título final y elijo los 4 fragmentos para Shorts.</p></div>
+    <div class="ask"><span class="n">2</span><p><b>¿La letra es tuya o adapta el clásico?</b> Si usa versos del poema de Barreto o la melodía de Otero, hay que revisar derechos y Content ID antes de publicar. Si es original, conviene decir «canción original» en la descripción.</p></div>
+    <div class="ask"><span class="n">3</span><p><b>El @ del canal de Dorian.</b> No lo encontré en vidIQ entre los canales con ese nombre.</p></div>
+    <div class="ask"><span class="n">4</span><p><b>Conectar Kiara Soul a vidIQ.</b> Tu vidIQ está conectado al canal «Francisco Sarria», así que solo veo datos públicos. Con el canal de Kiara conectado puedo ver retención, CTR y fuentes de tráfico, por ejemplo de dónde salieron las 7.943 vistas de <em>Nuestro Juramento</em>.</p></div>
+  </div>
+</section>
+
+<footer>Datos públicos de vidIQ a 1 de octubre de 2026 · Canal @kiarasoulmusic</footer>
+</div>
+
+<script>
+const VIDEOS = [
+  ["Ese Hombre",9220,"amor"],["Nuestro Juramento",7943,"amor"],["Demasiada Mujer",5303,"desp"],
+  ["La Canción Que Nunca Bailamos",1664,"amor"],["Bajo El Mismo Cielo",1348,"amor"],["La Copa Que Bebí Por Ti",1309,"desp"],
+  ["Si Te Vuelvo A Ver",1271,"amor"],["Cuando Vuelvas a Mi Balcón",1171,"amor"],["Ya No Me Pierdo",949,"desp"],
+  ["Ámame o Vete",859,"desp"],["Nos Quedó Grande El Amor",829,"desp"],["No Supiste Quererme",799,"desp"],
+  ["La Mujer Que Dejaste Ir",798,"desp"],["Lo Siento Ya Te Olvidé",787,"desp"],["Mi Pecado Fue Amarte",781,"desp"],
+  ["Nunca Pude Olvidarte",700,"amor"],["Lo Que Calló Mi Corazón",678,"amor"],["Brindo Por Mí",677,"desp"],
+  ["Siempre Vuelvo A Ti",615,"amor"],["Mi Renacer",579,"desp"],["Soy Feliz Aunque Les Duela",549,"desp"],
+  ["Jamás Volveré A Ti",503,"desp"],["Tu A Mí No Me Olvidas",502,"desp"],["Te Arrepentirás",497,"desp"],
+  ["No Me Mientas Más",491,"desp"],["Costumbres",452,"desp"],["Las Cartas Que Nunca Envié",443,"amor"],
+  ["Mix 1 hora: Noches de Jazz Bolero",415,"mix"],["El Día Que Te Vi",393,"amor"],["Lo Que Queda De Mi",393,"desp"],
+  ["Volviste Cuando Ya No Te Quería",353,"desp"],["Te Extraño, Pero No Te Quiero de Vuelta",281,"desp"],
+  ["Merezco Más",275,"desp"],["A Tu Ritmo No",195,"desp"],["Amor o Costumbre",161,"desp"]
+];
+const GROUP = { amor: "Amor y anhelo", desp: "Despecho y dignidad", mix: "Mix" };
+const max = VIDEOS[0][1];
+const fmt = n => n.toLocaleString("es-ES");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+document.getElementById("bars").innerHTML = VIDEOS.map(([n, v, g]) => `
+  <div class="bar-row" role="row" tabindex="0" title="${esc(n)} · ${fmt(v)} vistas · ${GROUP[g]}">
+    <span class="name" role="rowheader">${esc(n)}</span>
+    <span class="bar-track" role="cell"><span class="bar ${g}" style="width:calc((100% - 4.5rem) * ${(v / max).toFixed(4)})"></span><span class="val">${fmt(v)}</span></span>
+  </div>`).join("");
+
+document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () => {
+  const el = document.getElementById(b.dataset.target);
+  const sel = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Seleccionado, pulsa copiar"; };
+  try {
+    navigator.clipboard.writeText(el.textContent).then(() => { b.textContent = "Copiado"; setTimeout(() => b.textContent = "Copiar descripción", 1600); }, sel);
+  } catch { sel(); }
+}));
+</script>
