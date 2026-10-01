@@ -1,0 +1,27 @@
+TEXTOS DE LA INTRO DE «ÓDIAME» PARA CAPCUT
+
+Archivos (PNG 1920x1080 con fondo transparente):
+  01_se_prometieron.png              «Se prometieron no volver a verse»
+  02_ninguno_quiso_ser_olvidado.png  «Pero ninguno quiso ser olvidado»
+  03_titulo_odiame.png               Ódiame · KIARA SOUL & DORIAN FERRER
+
+Tipografías: Cormorant Garamond Italic (frases y título) y Cinzel (créditos).
+Están en la carpeta «fuentes» por si quieres instalarlas y escribir más textos
+con el mismo estilo. Licencia libre (OFL).
+
+CÓMO USARLOS EN CAPCUT
+1. Arrastra cada PNG a la línea de tiempo, en una pista por encima del vídeo.
+2. Ajusta la duración y la posición según la tabla de abajo.
+3. En cada PNG: Animación > Entrada > «Fundido» de 0,6 s
+                Animación > Salida > «Fundido» de 0,6 s
+4. No cambies el tamaño: ya están colocados para un vídeo 16:9.
+
+CUÁNDO PONERLOS (tiempos de tu montaje actual, sin el adelanto)
+  01_se_prometieron        de 0:03 a 0:08  (sobre los planos de Kiara)
+  02_ninguno_quiso...      de 0:11 a 0:15  (sobre Dorian en la mesa)
+  03_titulo_odiame         de 0:16 a 0:20  (sobre el plano general de Dorian)
+
+Si añades el adelanto de 6-8 s al principio, suma esos segundos a cada tiempo.
+Ejemplo con un adelanto de 8 s: 0:11-0:16, 0:19-0:23 y 0:24-0:28.
+
+Las imágenes «vista_previa_*.jpg» solo sirven para ver cómo quedan; no las uses en el vídeo.
